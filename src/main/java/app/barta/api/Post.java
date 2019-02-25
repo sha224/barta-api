@@ -1,5 +1,8 @@
 package app.barta.api;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -24,5 +27,13 @@ public class Post {
 	private int votes;
 	private List<User> upvoters;
 	private List<User> downvoters;
-	private String time;
+	private String creationTime;
+	
+	public Post() {
+		comments = new ArrayList<>();
+		votes = 0;
+		upvoters = new ArrayList<>();
+		downvoters = new ArrayList<>();
+		creationTime = OffsetDateTime.now(ZoneId.of("UTC")).toString();
+	}
 }
