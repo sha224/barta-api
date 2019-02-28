@@ -1,8 +1,5 @@
 package app.barta.api;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -12,6 +9,7 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 public class Comment {
@@ -28,15 +26,10 @@ public class Comment {
 	private Point location;
 	private int votes;
 	@DBRef
+	@EqualsAndHashCode.Exclude
 	private List<User> upvoters;
 	@DBRef
+	@EqualsAndHashCode.Exclude
 	private List<User> downvoters;
 	private String creationTime;
-	
-	public Comment() {
-		votes = 0;
-		upvoters = new ArrayList<>();
-		downvoters = new ArrayList<>();
-		creationTime = OffsetDateTime.now(ZoneId.of("UTC")).toString();
-	}
 }
