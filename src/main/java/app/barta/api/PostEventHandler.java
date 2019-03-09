@@ -21,7 +21,6 @@ public class PostEventHandler {
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Post post) {
 		post.setComments(new ArrayList<>());
-		post.setVotes(0);
 		post.setUpvoters(new ArrayList<>());
 		post.setDownvoters(new ArrayList<>());
 		post.setCreationTime(OffsetDateTime.now(ZoneId.of("UTC")).toString());

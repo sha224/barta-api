@@ -1,3 +1,4 @@
+/*
 package app.barta.api;
 
 import org.springframework.context.annotation.Configuration;
@@ -16,3 +17,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().permitAll();
 	}
 }
+*/

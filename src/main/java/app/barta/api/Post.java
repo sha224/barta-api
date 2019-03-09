@@ -26,10 +26,11 @@ public class Post {
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<Comment> comments;
-	private int votes;
+	@JsonIgnore
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<User> upvoters;
+	@JsonIgnore
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<User> downvoters;

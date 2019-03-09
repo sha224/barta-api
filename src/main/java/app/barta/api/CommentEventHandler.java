@@ -23,7 +23,6 @@ public class CommentEventHandler {
 		Post post = comment.getPost();
 		User author = comment.getAuthor();
 		comment.setAuthorIdentifier(post.getAuthorIdentifierMap().getIdentifier(author));
-		comment.setVotes(0);
 		comment.setUpvoters(new ArrayList<>());
 		comment.setDownvoters(new ArrayList<>());
 		comment.setCreationTime(OffsetDateTime.now(ZoneId.of("UTC")).toString());
