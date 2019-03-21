@@ -13,7 +13,6 @@ public class User {
 
 	@Id
 	private String id;
-	private int karma;
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<Post> posts;

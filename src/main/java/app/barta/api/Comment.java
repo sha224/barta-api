@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,17 +19,14 @@ public class Comment {
 	private String text;
 	@DBRef
 	private Post post;
-	@JsonIgnore
 	@DBRef
 	private User author;
 	private int authorIdentifier;
 	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
 	private Point location;
-	@JsonIgnore
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<User> upvoters;
-	@JsonIgnore
 	@DBRef
 	@EqualsAndHashCode.Exclude
 	private List<User> downvoters;

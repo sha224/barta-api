@@ -14,7 +14,6 @@ public class UserEventHandler {
 
 	@HandleBeforeCreate
 	public void handleBeforeCreate(User user) {
-		user.setKarma(0);
 		user.setPosts(new ArrayList<>());
 		user.setComments(new ArrayList<>());
 		user.setCreationTime(OffsetDateTime.now(ZoneId.of("UTC")).toString());
