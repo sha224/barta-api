@@ -26,6 +26,7 @@ public class CommentEventHandler {
 		Post post = comment.getPost();
 		User author = comment.getAuthor();
 		comment.setAuthorIdentifier(post.getAuthorIdentifierMap().getIdentifier(author));
+		mongoOperations.save(post);
 		comment.setUpvoters(new ArrayList<>());
 		comment.setDownvoters(new ArrayList<>());
 		comment.setCreationTime(OffsetDateTime.now(ZoneId.of("UTC")).toString());
