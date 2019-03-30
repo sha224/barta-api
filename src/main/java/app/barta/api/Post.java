@@ -25,9 +25,6 @@ public class Post {
 	private Point location;
 	@DBRef
 	@EqualsAndHashCode.Exclude
-	private List<Comment> comments;
-	@DBRef
-	@EqualsAndHashCode.Exclude
 	private List<User> upvoters;
 	@DBRef
 	@EqualsAndHashCode.Exclude

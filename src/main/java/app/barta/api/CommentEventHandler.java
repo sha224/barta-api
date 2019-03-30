@@ -3,11 +3,12 @@ package app.barta.api;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeLinkSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -30,19 +31,22 @@ public class CommentEventHandler {
 		comment.setCreationTime(OffsetDateTime.now(ZoneId.of("UTC")).toString());
 	}
 	
-	@HandleAfterCreate
-	public void handleAfterCreate(Comment comment) {
-		Post post = comment.getPost();
-		User author = comment.getAuthor();
-		post.getComments().add(comment);
-		author.getComments().add(comment);
-		mongoOperations.save(post);
-		mongoOperations.save(author);
-	}
-	
 	@HandleBeforeLinkSave
 	public void handleBeforeLinkSave(Comment comment, List<User> voters) {
-		comment.getUpvoters().removeAll(voters);
-		comment.getDownvoters().removeAll(voters);
+		Comment oldComment = mongoOperations.findById(comment.getId(), Comment.class);
+		if (comment.getUpvoters().size() > oldComment.getUpvoters().size()) {
+			retainUniqueVoters(comment.getUpvoters());
+			comment.getDownvoters().removeAll(comment.getUpvoters());
+		}
+		if (comment.getDownvoters().size() > oldComment.getDownvoters().size()) {
+			retainUniqueVoters(comment.getDownvoters());
+			comment.getUpvoters().removeAll(comment.getDownvoters());
+		}
+	}
+	
+	private void retainUniqueVoters(List<User> voters) {
+		Set<User> uniqueVoters = new HashSet<>(voters);
+		voters.clear();
+		voters.addAll(uniqueVoters);
 	}
 }

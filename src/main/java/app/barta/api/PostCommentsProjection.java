@@ -1,11 +1,13 @@
 package app.barta.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.geo.Point;
 import org.springframework.data.rest.core.config.Projection;
 
-@Projection(name = "details", types = {Post.class})
-public interface PostDetailsProjection {
+@Projection(name = "comments", types = {Post.class})
+public interface PostCommentsProjection {
 	
 	String getText();
 	
@@ -21,4 +23,7 @@ public interface PostDetailsProjection {
 	
 	@Value("#{@commentRepository.findByPost(target).size()}")
 	int getCommentCount();
+	
+	@Value("#{@commentRepository.findByPost(target)}")
+	List<CommentDetailsProjection> getComments();
 }

@@ -20,7 +20,4 @@ public interface CommentDetailsProjection {
 	
 	@Value("#{target.getDownvoters().size()}")
 	int getDownvotes();
-	
-	@Value("#{target.getComments().size()}")
-	int getCommentCount();
 }
