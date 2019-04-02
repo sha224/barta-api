@@ -25,7 +25,10 @@ public class CommentEventHandler {
 	public void handleBeforeCreate(Comment comment) {
 		Post post = comment.getPost();
 		User author = comment.getAuthor();
-		comment.setAuthorIdentifier(post.getAuthorIdentifierMap().getIdentifier(author));
+		if (author.getId().equals(post.getAuthor().getId()))
+			comment.setAuthorIdentifier(-1);
+		else
+			comment.setAuthorIdentifier(post.getAuthorIdentifierMap().getIdentifier(author));
 		mongoOperations.save(post);
 		comment.setUpvoters(new ArrayList<>());
 		comment.setDownvoters(new ArrayList<>());
